@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustStrip from './components/TrustStrip';
@@ -14,9 +14,22 @@ import ContactCTA from './components/ContactCTA';
 import ContactForm from './components/ContactForm';
 import WhatsAppButton from './components/WhatsAppButton';
 import Footer from './components/Footer';
+import LegalPage from './components/LegalPage';
 import { config } from './config';
 
 function App() {
+  const [isLegalPage, setIsLegalPage] = useState(() => window.location.hash.startsWith('#legal'));
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setIsLegalPage(window.location.hash.startsWith('#legal'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   useEffect(() => {
     // Set page title
     document.title = config.seo.title;
@@ -53,20 +66,24 @@ function App() {
   return (
     <div className="min-h-screen bg-light-off-white">
       <Navbar />
-      <main>
-        <Hero />
-        <TrustStrip />
-        <About />
-        <Approach />
-        <Services />
-        <PhotoBanner />
-        <PrescriptionEnquiry />
-        <WhyChooseUs />
-        <Registration />
-        <Location />
-        <ContactCTA />
-        <ContactForm />
-      </main>
+      {isLegalPage ? (
+        <LegalPage />
+      ) : (
+        <main>
+          <Hero />
+          <TrustStrip />
+          <About />
+          <Approach />
+          <Services />
+          <PhotoBanner />
+          <PrescriptionEnquiry />
+          <WhyChooseUs />
+          <Registration />
+          <Location />
+          <ContactCTA />
+          <ContactForm />
+        </main>
+      )}
       <Footer />
       <WhatsAppButton />
     </div>
