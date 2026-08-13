@@ -3,7 +3,7 @@ import { Pill, MapPin, Phone, Mail, Heart } from 'lucide-react';
 import { config } from '../config';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2023;
 
   const footerLinks = {
     navigation: [
