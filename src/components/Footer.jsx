@@ -19,9 +19,9 @@ export default function Footer() {
       { icon: Mail, label: 'Email', value: config.email, href: `mailto:${config.email}` },
     ],
     legal: [
-      { name: 'Privacy Policy', href: '#privacy' },
-      { name: 'Terms & Conditions', href: '#terms' },
-      { name: 'Medical Disclaimer', href: '#disclaimer' },
+      { name: 'Privacy Policy', href: '#legal/privacy' },
+      { name: 'Terms & Conditions', href: '#legal/terms' },
+      { name: 'Medical Disclaimer', href: '#legal/disclaimer' },
     ],
   };
 
