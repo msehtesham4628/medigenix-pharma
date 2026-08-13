@@ -1,0 +1,148 @@
+/* Additional component-specific animations and styles */
+
+@layer components {
+  /* Button styles */
+  .btn-primary {
+    @apply bg-medical-blue hover:bg-medical-dark-blue text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-medical-blue border-2 border-medical-blue px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100;
+  }
+
+  .card-hover {
+    @apply hover:border-medical-blue/30;
+  }
+
+  /* Section styles */
+  .section {
+    @apply py-20 md:py-32;
+  }
+
+  /* Container utilities */
+  .container-max {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Text utilities */
+  .heading-primary {
+    @apply text-4xl md:text-5xl font-bold text-dark-navy leading-tight;
+  }
+
+  .heading-secondary {
+    @apply text-2xl md:text-3xl font-bold text-dark-navy leading-tight;
+  }
+
+  .text-muted {
+    @apply text-gray-600;
+  }
+
+  /* Gradient utilities */
+  .gradient-blue-green {
+    @apply bg-gradient-to-br from-medical-blue/5 to-pharmacy-green/5;
+  }
+
+  .gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-b from-transparent to-black/40;
+  }
+}
+
+/* Custom animations */
+@keyframes float-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Smooth scrolling for anchor links */
+a[href^='#'] {
+  scroll-behavior: smooth;
+}
+
+/* Image optimization */
+img {
+  @apply max-w-full h-auto;
+}
+
+/* Focus styles for accessibility */
+a:focus,
+button:focus {
+  @apply outline-none ring-2 ring-pharmacy-green ring-offset-2;
+}
+
+/* Loading states */
+button:disabled {
+  @apply cursor-not-allowed opacity-60;
+}
+
+/* Form input styles */
+input,
+textarea,
+select {
+  @apply font-sans;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  @apply ring-2 ring-medical-blue ring-offset-0;
+}
+
+/* Print styles */
+@media print {
+  body {
+    @apply bg-white;
+  }
+
+  nav,
+  .floating-button,
+  .contact-form {
+    @apply hidden;
+  }
+}
+
+/* Responsive image sizing */
+@media (max-width: 768px) {
+  .responsive-image {
+    @apply w-full h-auto;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 640px) {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply text-base;
+  }
+
+  .container-max {
+    @apply px-4;
+  }
+}
