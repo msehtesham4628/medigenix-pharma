@@ -47,8 +47,8 @@ export const config = {
   maps: {
     placeName: 'MEDIGENIX PHARMA, Bandlaguda, Hyderabad',
     // Update with actual coordinates when available
-    latitude: 17.3850,
-    longitude: 78.5205,
+    latitude: 17.311927,
+    longitude: 78.463287,
   },
 
   // Local image assets - no external image service is required.
