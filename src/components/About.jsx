@@ -66,7 +66,7 @@ export default function About() {
 
             {/* Learn More Button */}
             <a
-              href="#services"
+              href="/services"
               className="inline-flex items-center gap-2 text-medical-blue hover:text-medical-dark-blue font-semibold transition-all duration-300 group"
             >
               Explore Our Services

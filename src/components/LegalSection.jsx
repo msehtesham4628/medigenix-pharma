@@ -7,7 +7,7 @@ const legalItems = [
     title: 'Privacy Policy',
     description:
       'Learn how MEDIGENIX PHARMA handles enquiry, contact, and prescription-related information.',
-    href: '#legal/privacy',
+    href: '/legal/privacy',
     icon: Lock,
   },
   {
@@ -15,7 +15,7 @@ const legalItems = [
     title: 'Terms & Conditions',
     description:
       'Review the website usage terms, enquiry limitations, and customer responsibilities.',
-    href: '#legal/terms',
+    href: '/legal/terms',
     icon: FileText,
   },
   {
@@ -23,7 +23,7 @@ const legalItems = [
     title: 'Medical Disclaimer',
     description:
       'Understand that website information is general and is not a substitute for professional medical advice.',
-    href: '#legal/disclaimer',
+    href: '/legal/disclaimer',
     icon: AlertTriangle,
   },
 ];

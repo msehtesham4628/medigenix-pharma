@@ -95,7 +95,7 @@ export default function Location() {
                 <ExternalLink size={18} />
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-medical-blue border-2 border-medical-blue px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
               >
                 Contact Us

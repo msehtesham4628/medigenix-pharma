@@ -65,8 +65,8 @@ export const config = {
   // Social Links (if needed)
   social: {
     whatsapp: 'https://wa.me/',
-    facebook: '#',
-    instagram: '#',
+    facebook: '',
+    instagram: '',
   },
 
   // SEO

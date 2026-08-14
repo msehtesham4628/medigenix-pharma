@@ -50,23 +50,19 @@ const legalSections = [
   },
 ];
 
-export default function LegalPage({ activeHash }) {
+export default function LegalPage({ currentPath }) {
   useEffect(() => {
-    if (!activeHash) return;
-
-    // Normalizes formats like '#legal/privacy', '#/privacy', or '#privacy'
-    const sectionId = activeHash.replace(/^#\/?(legal\/)?/, '');
+    const sectionId = currentPath.replace(/^\/legal\/?/, '');
     const targetElement = document.getElementById(sectionId);
 
     if (targetElement) {
-      // Delay slightly for render stability if changing routes
       requestAnimationFrame(() => {
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [activeHash]);
+  }, [currentPath]);
 
   return (
     <main className="bg-light-off-white min-h-screen pt-24 md:pt-28 pb-16">

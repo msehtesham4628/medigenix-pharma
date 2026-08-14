@@ -50,7 +50,7 @@ export default function ContactCTA() {
             </a>
 
             <a
-              href="#location"
+              href="/location"
               className="inline-flex items-center justify-center gap-3 bg-transparent hover:bg-white/10 text-white border-2 border-white px-8 py-3 rounded-lg font-semibold transition-all duration-300"
             >
               <MapPin size={20} />
