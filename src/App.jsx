@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustStrip from './components/TrustStrip';
@@ -18,10 +18,15 @@ import Footer from './components/Footer';
 import LegalPage from './components/LegalPage';
 import { config } from './config';
 
-function App() {
+export default function App() {
   const [currentHash, setCurrentHash] = useState(() => window.location.hash);
-  const isLegalPage = currentHash.startsWith('#legal/');
 
+  // Check whether the route is pointing to legal subpages or legal section
+  const isLegalPage = useMemo(() => {
+    return /^#\/?legal(\/.*)?$/i.test(currentHash);
+  }, [currentHash]);
+
+  // 1. Listen for hash changes across the application
   useEffect(() => {
     const handleHashChange = () => {
       setCurrentHash(window.location.hash);
@@ -31,45 +36,48 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-
+  // 2. Handle in-page scrolling for non-legal landing sections
   useEffect(() => {
-    if (isLegalPage) {
-      return;
-    }
+    if (isLegalPage) return;
 
-    const sectionId = currentHash.replace('#', '');
+    const sectionId = currentHash.replace(/^#\/?/, '');
 
     if (!sectionId) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
-    const section = document.getElementById(sectionId);
-
-    if (section) {
-      requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    const targetElement = document.getElementById(sectionId);
+    if (targetElement) {
+      requestAnimationFrame(() => {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     }
   }, [currentHash, isLegalPage]);
 
+  // 3. Dynamic Page Title & SEO Meta Tag Management
   useEffect(() => {
-    // Set page title
-    document.title = config.seo.title;
-
-    // Set meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', config.seo.description);
+    // Dynamically update document title based on the active view
+    if (isLegalPage) {
+      document.title = `Legal Information | ${config?.businessName || 'MEDIGENIX PHARMA'}`;
     } else {
-      const meta = document.createElement('meta');
-      meta.name = 'description';
-      meta.content = config.seo.description;
-      document.head.appendChild(meta);
+      document.title = config?.seo?.title || config?.businessName || 'Pharmacy';
     }
 
-    // Add Open Graph meta tags
+    // Set standard meta description
+    const descriptionContent = config?.seo?.description || '';
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = 'description';
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute('content', descriptionContent);
+
+    // Open Graph Tags
     const ogTags = [
-      { property: 'og:title', content: config.seo.title },
-      { property: 'og:description', content: config.seo.description },
+      { property: 'og:title', content: config?.seo?.title || config?.businessName || '' },
+      { property: 'og:description', content: descriptionContent },
       { property: 'og:type', content: 'business.business' },
     ];
 
@@ -82,34 +90,36 @@ function App() {
       }
       element.setAttribute('content', tag.content);
     });
-  }, []);
+  }, [isLegalPage]);
 
   return (
-    <div className="min-h-screen bg-light-off-white">
-      <Navbar />
-      {isLegalPage ? (
-        <LegalPage activeHash={currentHash} />
-      ) : (
-        <main>
-          <Hero />
-          <TrustStrip />
-          <About />
-          <Approach />
-          <Services />
-          <PhotoBanner />
-          <PrescriptionEnquiry />
-          <WhyChooseUs />
-          <Registration />
-          <Location />
-          <ContactCTA />
-          <ContactForm />
-          <LegalSection />
-        </main>
-      )}
+    <div className="min-h-screen bg-light-off-white flex flex-col justify-between selection:bg-medical-blue selection:text-white">
+      <Navbar activeHash={currentHash} />
+
+      <div className="flex-grow">
+        {isLegalPage ? (
+          <LegalPage activeHash={currentHash} />
+        ) : (
+          <main id="main-content">
+            <Hero />
+            <TrustStrip />
+            <About />
+            <Approach />
+            <Services />
+            <PhotoBanner />
+            <PrescriptionEnquiry />
+            <WhyChooseUs />
+            <Registration />
+            <Location />
+            <ContactCTA />
+            <ContactForm />
+            <LegalSection />
+          </main>
+        )}
+      </div>
+
       <Footer />
       <WhatsAppButton />
     </div>
   );
 }
-
-export default App;
