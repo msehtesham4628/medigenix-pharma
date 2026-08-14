@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustStrip from './components/TrustStrip';
@@ -12,11 +12,45 @@ import Registration from './components/Registration';
 import Location from './components/Location';
 import ContactCTA from './components/ContactCTA';
 import ContactForm from './components/ContactForm';
+import LegalSection from './components/LegalSection';
 import WhatsAppButton from './components/WhatsAppButton';
 import Footer from './components/Footer';
+import LegalPage from './components/LegalPage';
 import { config } from './config';
 
 function App() {
+  const [currentHash, setCurrentHash] = useState(() => window.location.hash);
+  const isLegalPage = currentHash.startsWith('#legal/');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+
+  useEffect(() => {
+    if (isLegalPage) {
+      return;
+    }
+
+    const sectionId = currentHash.replace('#', '');
+
+    if (!sectionId) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
+  }, [currentHash, isLegalPage]);
+
   useEffect(() => {
     // Set page title
     document.title = config.seo.title;
@@ -53,20 +87,25 @@ function App() {
   return (
     <div className="min-h-screen bg-light-off-white">
       <Navbar />
-      <main>
-        <Hero />
-        <TrustStrip />
-        <About />
-        <Approach />
-        <Services />
-        <PhotoBanner />
-        <PrescriptionEnquiry />
-        <WhyChooseUs />
-        <Registration />
-        <Location />
-        <ContactCTA />
-        <ContactForm />
-      </main>
+      {isLegalPage ? (
+        <LegalPage activeHash={currentHash} />
+      ) : (
+        <main>
+          <Hero />
+          <TrustStrip />
+          <About />
+          <Approach />
+          <Services />
+          <PhotoBanner />
+          <PrescriptionEnquiry />
+          <WhyChooseUs />
+          <Registration />
+          <Location />
+          <ContactCTA />
+          <ContactForm />
+          <LegalSection />
+        </main>
+      )}
       <Footer />
       <WhatsAppButton />
     </div>
