@@ -73,14 +73,14 @@ export default function Hero() {
               }`}
             >
               <a
-                href="#contact"
+                href="/contact"
                 className="flex items-center justify-center gap-2 bg-medical-blue hover:bg-medical-dark-blue text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Contact Us
                 <ArrowRight size={20} />
               </a>
               <a
-                href="#location"
+                href="/location"
                 className="flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-medical-blue border-2 border-medical-blue px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
               >
                 Get Directions

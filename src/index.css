@@ -33,3 +33,15 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-medical-blue rounded-full hover:bg-medical-dark-blue;
 }
+
+/* Smooth transitions for client-side route changes */
+.page-transition {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.page-transition-entered {
+  opacity: 1;
+  transform: translateY(0);
+}

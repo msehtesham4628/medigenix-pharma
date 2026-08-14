@@ -75,7 +75,7 @@ export default function Registration() {
               directly.
             </p>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 bg-medical-blue hover:bg-medical-dark-blue text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               View Our Details

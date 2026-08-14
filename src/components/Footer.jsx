@@ -7,12 +7,12 @@ export default function Footer() {
 
   const footerLinks = {
     navigation: [
-      { name: 'Home', href: '#home' },
-      { name: 'About', href: '#about' },
-      { name: 'Services', href: '#services' },
-      { name: 'Why Us', href: '#why-us' },
-      { name: 'Contact', href: '#contact' },
-      { name: 'Legal', href: '#legal-overview' },
+      { name: 'Home', href: '/' },
+      { name: 'About', href: '/about' },
+      { name: 'Services', href: '/services' },
+      { name: 'Why Us', href: '/why-us' },
+      { name: 'Contact', href: '/contact' },
+      { name: 'Legal', href: '/legal' },
     ],
     contact: [
       { icon: MapPin, label: 'Address', value: 'Bandlaguda, Hyderabad' },
@@ -20,9 +20,9 @@ export default function Footer() {
       { icon: Mail, label: 'Email', value: config.email, href: `mailto:${config.email}` },
     ],
     legal: [
-      { name: 'Privacy Policy', href: '#legal/privacy' },
-      { name: 'Terms & Conditions', href: '#legal/terms' },
-      { name: 'Medical Disclaimer', href: '#legal/disclaimer' },
+      { name: 'Privacy Policy', href: '/legal/privacy' },
+      { name: 'Terms & Conditions', href: '/legal/terms' },
+      { name: 'Medical Disclaimer', href: '/legal/disclaimer' },
     ],
   };
 
@@ -49,7 +49,7 @@ export default function Footer() {
             {/* Brand */}
             <div className="space-y-4">
               <a
-                href="#home"
+                href="/"
                 className="flex items-center gap-3 text-2xl font-bold hover:text-pharmacy-green transition-colors"
               >
                 <div className="w-10 h-10 bg-pharmacy-green rounded-lg flex items-center justify-center">
@@ -88,7 +88,7 @@ export default function Footer() {
                   return (
                     <a
                       key={item.label}
-                      href={item.href || '#'}
+                      href={item.href || '/contact'}
                       className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors group text-sm"
                     >
                       <Icon size={18} className="flex-shrink-0 mt-0.5 group-hover:text-pharmacy-green transition-colors" />

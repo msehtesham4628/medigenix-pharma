@@ -78,11 +78,6 @@
   animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Smooth scrolling for anchor links */
-a[href^='#'] {
-  scroll-behavior: smooth;
-}
-
 /* Image optimization */
 img {
   @apply max-w-full h-auto;

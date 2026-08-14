@@ -31,7 +31,7 @@ export default function PhotoBanner() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2 bg-pharmacy-green hover:bg-pharmacy-light-green text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Contact MEDIGENIX PHARMA

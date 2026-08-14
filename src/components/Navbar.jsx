@@ -14,12 +14,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Why Us', href: '#why-us' },
-    { name: 'Contact', href: '#contact' },
-    { name: 'Legal', href: '#legal-overview' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Services', href: '/services' },
+    { name: 'Why Us', href: '/why-us' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Legal', href: '/legal' },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <a
-            href="#home"
+            href="/"
             className="flex items-center gap-3 text-xl font-bold text-medical-blue"
           >
             <div className="w-10 h-10 bg-medical-blue rounded-lg flex items-center justify-center">
@@ -59,7 +59,7 @@ export default function Navbar() {
           {/* CTA Button - Desktop */}
           <div className="hidden md:block">
             <a
-              href="#contact"
+              href="/contact"
               className="bg-medical-blue hover:bg-medical-dark-blue text-white px-6 py-2 rounded-lg transition-all duration-300 font-medium"
             >
               Get in Touch
@@ -94,7 +94,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/contact"
               className="block w-full text-left px-4 py-3 bg-medical-blue text-white font-medium rounded-lg m-4 mt-4 hover:bg-medical-dark-blue transition-colors"
               onClick={() => setIsOpen(false)}
             >
