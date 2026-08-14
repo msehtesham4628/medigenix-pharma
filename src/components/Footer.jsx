@@ -12,6 +12,7 @@ export default function Footer() {
       { name: 'Services', href: '#services' },
       { name: 'Why Us', href: '#why-us' },
       { name: 'Contact', href: '#contact' },
+      { name: 'Legal', href: '#legal-overview' },
     ],
     contact: [
       { icon: MapPin, label: 'Address', value: 'Bandlaguda, Hyderabad' },

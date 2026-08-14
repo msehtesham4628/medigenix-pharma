@@ -12,23 +12,44 @@ import Registration from './components/Registration';
 import Location from './components/Location';
 import ContactCTA from './components/ContactCTA';
 import ContactForm from './components/ContactForm';
+import LegalSection from './components/LegalSection';
 import WhatsAppButton from './components/WhatsAppButton';
 import Footer from './components/Footer';
 import LegalPage from './components/LegalPage';
 import { config } from './config';
 
 function App() {
-  const [isLegalPage, setIsLegalPage] = useState(() => window.location.hash.startsWith('#legal'));
+  const [currentHash, setCurrentHash] = useState(() => window.location.hash);
+  const isLegalPage = currentHash.startsWith('#legal/');
 
   useEffect(() => {
     const handleHashChange = () => {
-      setIsLegalPage(window.location.hash.startsWith('#legal'));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setCurrentHash(window.location.hash);
     };
 
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+
+  useEffect(() => {
+    if (isLegalPage) {
+      return;
+    }
+
+    const sectionId = currentHash.replace('#', '');
+
+    if (!sectionId) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
+  }, [currentHash, isLegalPage]);
 
   useEffect(() => {
     // Set page title
@@ -67,7 +88,7 @@ function App() {
     <div className="min-h-screen bg-light-off-white">
       <Navbar />
       {isLegalPage ? (
-        <LegalPage />
+        <LegalPage activeHash={currentHash} />
       ) : (
         <main>
           <Hero />
@@ -82,6 +103,7 @@ function App() {
           <Location />
           <ContactCTA />
           <ContactForm />
+          <LegalSection />
         </main>
       )}
       <Footer />

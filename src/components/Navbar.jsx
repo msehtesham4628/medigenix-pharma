@@ -19,6 +19,7 @@ export default function Navbar() {
     { name: 'Services', href: '#services' },
     { name: 'Why Us', href: '#why-us' },
     { name: 'Contact', href: '#contact' },
+    { name: 'Legal', href: '#legal-overview' },
   ];
 
   return (

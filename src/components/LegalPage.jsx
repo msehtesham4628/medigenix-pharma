@@ -7,7 +7,7 @@ const legalSections = [
     id: 'privacy',
     title: 'Privacy Policy',
     icon: Lock,
-    updated: 'Last updated: August 13, 2026',
+    updated: 'Effective date: January 1, 2024',
     intro:
       'This Privacy Policy explains how MEDIGENIX PHARMA collects, uses, and protects information shared through this website, phone, email, WhatsApp, and enquiry forms.',
     points: [
@@ -22,7 +22,7 @@ const legalSections = [
     id: 'terms',
     title: 'Terms & Conditions',
     icon: FileText,
-    updated: 'Effective date: August 13, 2026',
+    updated: 'Effective date: January 1, 2024',
     intro:
       'By using this website or contacting MEDIGENIX PHARMA through any listed channel, you agree to the following terms for website and enquiry usage.',
     points: [
@@ -37,7 +37,7 @@ const legalSections = [
     id: 'disclaimer',
     title: 'Medical Disclaimer',
     icon: AlertTriangle,
-    updated: 'Please read before submitting health-related enquiries',
+    updated: 'Effective date: January 1, 2024',
     intro:
       'The information on this website is not intended to replace advice from a qualified doctor, pharmacist, or other healthcare professional.',
     points: [
@@ -50,15 +50,18 @@ const legalSections = [
   },
 ];
 
-export default function LegalPage() {
+export default function LegalPage({ activeHash }) {
   useEffect(() => {
-    const sectionId = window.location.hash.replace('#legal/', '');
+    const sectionId = activeHash.replace('#legal/', '');
     const section = document.getElementById(sectionId);
 
     if (section) {
       requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+      return;
     }
-  }, []);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeHash]);
 
   return (
     <main className="bg-light-off-white min-h-screen pt-28">
