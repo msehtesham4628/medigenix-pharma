@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AlertTriangle, FileText, Lock, ShieldCheck } from 'lucide-react';
+import { AlertTriangle, FileText, Lock, ShieldCheck, Mail, Phone } from 'lucide-react';
 import { config } from '../config';
 
 const legalSections = [
@@ -52,74 +52,108 @@ const legalSections = [
 
 export default function LegalPage({ activeHash }) {
   useEffect(() => {
-    const sectionId = activeHash.replace('#legal/', '');
-    const section = document.getElementById(sectionId);
+    if (!activeHash) return;
 
-    if (section) {
-      requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-      return;
+    // Normalizes formats like '#legal/privacy', '#/privacy', or '#privacy'
+    const sectionId = activeHash.replace(/^#\/?(legal\/)?/, '');
+    const targetElement = document.getElementById(sectionId);
+
+    if (targetElement) {
+      // Delay slightly for render stability if changing routes
+      requestAnimationFrame(() => {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [activeHash]);
 
   return (
-    <main className="bg-light-off-white min-h-screen pt-28">
-      <section className="py-16 md:py-20 bg-gradient-to-br from-medical-blue/10 to-pharmacy-green/10">
-        <div className="container-max text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white shadow-md mb-6">
-            <ShieldCheck className="text-medical-blue" size={34} />
+    <main className="bg-light-off-white min-h-screen pt-24 md:pt-28 pb-16">
+      {/* Hero Header */}
+      <section className="py-14 md:py-20 bg-gradient-to-br from-medical-blue/10 via-white to-pharmacy-green/10 border-b border-gray-100">
+        <div className="container-max mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white shadow-sm mb-6 border border-medical-blue/10">
+            <ShieldCheck className="text-medical-blue" size={32} aria-hidden="true" />
           </div>
-          <h1 className="heading-primary mb-4">Legal Information</h1>
-          <p className="text-muted max-w-3xl mx-auto text-lg leading-relaxed">
-            Review the privacy, website usage, and medical disclaimer information for {config.businessName} before using our enquiry forms or contact channels.
+          <h1 className="heading-primary text-3xl md:text-5xl font-extrabold text-dark-navy mb-4">
+            Legal Information
+          </h1>
+          <p className="text-muted max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+            Review the privacy, website usage, and medical disclaimer policies for {config?.businessName || 'MEDIGENIX PHARMA'} before using our services.
           </p>
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
-        <div className="container-max space-y-10">
+      {/* Main Content Articles */}
+      <section className="py-12 md:py-16">
+        <div className="container-max mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl space-y-8 md:space-y-12">
           {legalSections.map((section) => {
             const Icon = section.icon;
             return (
               <article
                 key={section.id}
                 id={section.id}
-                className="card scroll-mt-28"
+                tabIndex="-1"
+                className="card scroll-mt-32 p-6 sm:p-8 md:p-10 rounded-2xl bg-white border border-gray-150 shadow-sm focus:outline-none"
               >
-                <div className="flex flex-col md:flex-row md:items-start gap-5 mb-6">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-medical-blue/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="text-medical-blue" size={26} />
+                    <Icon className="text-medical-blue" size={24} aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-pharmacy-green mb-2">{section.updated}</p>
-                    <h2 className="heading-secondary mb-3">{section.title}</h2>
-                    <p className="text-muted leading-relaxed">{section.intro}</p>
+                    <span className="inline-block text-xs font-semibold uppercase tracking-wider text-pharmacy-green bg-pharmacy-green/10 px-2.5 py-1 rounded-md mb-2">
+                      {section.updated}
+                    </span>
+                    <h2 className="heading-secondary text-2xl md:text-3xl font-bold text-dark-navy mb-2">
+                      {section.title}
+                    </h2>
+                    <p className="text-muted text-sm md:text-base leading-relaxed">
+                      {section.intro}
+                    </p>
                   </div>
                 </div>
-                <ul className="space-y-3 text-gray-700 leading-relaxed list-disc pl-6">
-                  {section.points.map((point) => (
-                    <li key={point}>{point}</li>
+
+                <hr className="my-6 border-gray-100" />
+
+                <ul className="space-y-3.5 text-gray-700 text-sm md:text-base leading-relaxed list-disc pl-5 marker:text-medical-blue">
+                  {section.points.map((point, index) => (
+                    <li key={index} className="pl-1">
+                      {point}
+                    </li>
                   ))}
                 </ul>
               </article>
             );
           })}
 
-          <div className="bg-white rounded-xl p-8 border border-medical-blue/10 shadow-sm">
-            <h2 className="text-xl font-bold text-dark-navy mb-3">Legal Contact</h2>
-            <p className="text-muted leading-relaxed mb-4">
-              For privacy, terms, or website-related questions, contact {config.businessName} using the details below.
+          {/* Contact Support Footer Box */}
+          <aside className="bg-white rounded-2xl p-6 sm:p-8 border border-medical-blue/20 shadow-sm">
+            <h2 className="text-xl font-bold text-dark-navy mb-2">Legal & Compliance Inquiries</h2>
+            <p className="text-muted text-sm md:text-base leading-relaxed mb-6">
+              For queries concerning privacy policies, website terms, or data protection, reach out directly to our compliance desk:
             </p>
-            <div className="grid sm:grid-cols-2 gap-4 text-sm text-gray-700">
-              <a href={`mailto:${config.email}`} className="font-semibold text-medical-blue hover:text-medical-dark-blue">
-                {config.email}
-              </a>
-              <a href={`tel:${config.phone}`} className="font-semibold text-medical-blue hover:text-medical-dark-blue">
-                {config.phone}
-              </a>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {config?.email && (
+                <a
+                  href={`mailto:${config.email}`}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-medical-blue/5 text-medical-blue hover:bg-medical-blue/10 transition-colors font-medium text-sm"
+                >
+                  <Mail size={18} aria-hidden="true" />
+                  <span>{config.email}</span>
+                </a>
+              )}
+              {config?.phone && (
+                <a
+                  href={`tel:${config.phone}`}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-medical-blue/5 text-medical-blue hover:bg-medical-blue/10 transition-colors font-medium text-sm"
+                >
+                  <Phone size={18} aria-hidden="true" />
+                  <span>{config.phone}</span>
+                </a>
+              )}
             </div>
-          </div>
+          </aside>
         </div>
       </section>
     </main>
